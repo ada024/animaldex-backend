@@ -1,0 +1,153 @@
+
+
+#extend("base"):
+    #export("title", "Trainers")
+    #export("body"):
+
+
+
+<main id="main">
+  <!-- ======= Team Section ======= -->
+  <section id="team" class="team">
+
+    <div class="container" >
+
+      <header class="section-header">
+        <p>Trainers</p>
+      </header>
+
+     
+     
+     <ul style="list-style-type: none;">
+         #for(user in users):
+         <li>
+             <div>
+                 #if(user.image !=""): <img class="imgrounded" src="#(user.image)"  width="70" height="70"> #else: <img src="https://180dc.org/wp-content/uploads/2017/11/profile-placeholder.png"  width="50" height="50"> #endif
+             <button class="button button1" onclick="openModal('#(user.name) gets a new animal?', #(user.id))"><h5>#(user.name):#if(count(user.animals) == 1): 1 animal #else: #count(user.animals) animals #endif</h5></button>
+             <br/>
+            
+            #if(count(user.animals) > 0):
+             <div class="table-responsive">
+                 <table class="table">
+                   <thead>
+                     <tr>
+                         <th scope="col">Image</th>
+                       <th scope="col">Name</th>
+                       <th scope="col">Type</th>
+                       <th scope="col">Desciption</th>
+                       <th scope="col">Action</th>
+                     </tr>
+                   </thead>
+                   <tbody>
+                       #for(animal in user.animals):
+                     <tr>
+                         <td>
+                         #if(animal.image): <img src="#(animal.image)"  width="50" height="50"> #else: <img src="http://ichno.org/dokuwiki/lib/exe/fetch.php?cache=&media=characters:placeholder.png"  width="50" height="50"> #endif
+                 </td>
+                         
+                         
+                       <td><p style="width:10%;">#if(!animal.isSelected): #(animal.name) #else:<input style="width:8em;" type="text" class="form-control" name="name" id="name" value="#(animal.name)" placeholder="Username" aria-label="Username"> #endif </p></td>
+                       <td>
+                           <p style="width:50%;">#if(!animal.isSelected): #(animal.type) #else:
+                           <select class="form-select" value="animal.type" aria-label="Default select example">
+                           <option value="Unknown" #if(animal.type == ""): selected #endif >Choose a type</option>
+                           <option value="Flying"  #if(animal.type == "Flying"): selected #endif >Flying</option>
+                           <option value="Water"  #if(animal.type == "Water"): selected #endif >Water</option>
+                           <option value="Bug" #if(animal.type == "Bug"): selected #endif >Bug</option>
+                           <option value="Normal"  #if(animal.type == "Normal"): selected #endif >Normal</option>
+                           <option value="Grass"  #if(animal.type == "Grass"): selected #endif >Grass</option>
+                           <option value="Unknown"  #if(animal.type == "Unknown"): selected #endif >Unknown</option>
+                         </select> #endif</p></td>
+                       <td><p style="width:50%;">#if(!animal.isSelected): #(animal.description) #else: <div class="form-floating">
+                           <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
+                         </div> #endif</p></td>
+                       <td>#if(!false):
+                           
+                           <span class="col-md-2">
+                                   <form method="post" action="/animals/delete/#(animal.id)">
+                                       <input class="btn btn-dark " type="submit" value="Delete">
+                                   </form>
+                               </span> #endif
+                           
+                           
+                           <span class="col-md-2">
+                                   <form method="post" action="/animals/#(animal.id)/#if(animal.isSelected): false #else: true #endif ">
+                                       <input class="btn #if(animal.isSelected): btn-success #else: btn-secondary #endif" type="submit" value="#if(false): Save #else: Edit #endif">
+                                   </form>
+                               </span>
+                       </td>
+                     </tr>
+                     #endfor
+                   </tbody>
+                 </table>
+                 </div>
+             #else:
+             This trainer does not have any animals yet!
+             #endif
+             
+         </div>
+         </li>
+         #endfor
+     </ul>
+     
+     
+     
+
+    </div>
+  </section><!-- End Team Section -->
+</main><!-- End #main -->
+
+<!-- The Modal -->
+<div id="myModal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <div class="modal-header">
+        <div id="headermodal">Modal Header</div>
+      <span class="close">&times;</span>
+    </div>
+    <div class="modal-body">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <form method="post" action="/users">
+                        <div class="form-group">
+                            <label for="lastName">Nickname</label>
+                            <div class="form-floating">
+                              <input type="email" class="form-control" id="floatingInput" placeholder="name">
+                              <label for="floatingInput">Name</label>
+                            </div>
+
+                        </div>
+                        <div class="form-group">
+                            <label for="lastName">Type</label>
+                            <select class="form-select" aria-label="Default select example">
+                              <option selected>Choose a type</option>
+                              <option value="1">Flying</option>
+                              <option value="2">Water</option>
+                              <option value="3">Bug</option>
+                              <option value="3">Normal</option>
+                              <option value="3">Grass</option>
+                              <option value="3">Unknown</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="age">Description</label>
+                            <div class="form-floating">
+                              <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
+                              <label for="floatingTextarea2">About</label>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-secondary">Go!</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+
+</div>
+
+
+#endexport
+#endextend

@@ -1,0 +1,94 @@
+#extend("base"):
+    #export("title", (title))
+    #export("body"):
+
+
+<!-- ======= Hero Section ======= -->
+<section id="hero" class="hero d-flex align-items-center">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-6 d-flex flex-column justify-content-center">
+        <h1 data-aos="fade-up">AnimalDex is an electronic service designed to catalog and provide information regarding the various species and their owners</h1>
+        <h2 data-aos="fade-up" data-aos-delay="400">  </h2>
+        <div data-aos="fade-up" data-aos-delay="600">
+          <div class="text-center text-lg-start">
+            <a href="/trainers/" class="btn btn-secondary scrollto d-inline-flex align-items-center justify-content-center align-self-center">
+              <span>View trainers</span>
+              <i class="bi bi-arrow-right"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6 hero-img" data-aos="zoom-out" data-aos-delay="200">
+
+
+          <div id="carouselDexControls" class="carousel carousel-dark slide" data-bs-ride="carousel" data-bs-interval="2500">
+              <div class="carousel-inner" >
+                <div class="carousel-item active" >
+                  <img src="http://2.bp.blogspot.com/-nXptOjeKhcY/TWB634HXuTI/AAAAAAAAA6A/lJpWXSGGVEI/s1600/Dolphin.jpg" class="d-block w-100" alt="...">
+                  <div class="carousel-caption d-none d-md-block">
+                    <h5 style="color: white;">Vaporeon</h5>
+                  </div>
+                </div>
+                
+                <div class="carousel-item" >
+                  <img src="https://149366112.v2.pressablecdn.com/wp-content/uploads/2019/08/shutterstock_590051840.jpg" class="d-block w-100" alt="...">
+                  <div class="carousel-caption d-none d-md-block">
+                    <h5>Tauros</h5>
+                  </div>
+                </div>
+                
+                <div class="carousel-item" >
+                  <img src="https://lh5.googleusercontent.com/-Jh11M--8g1E/TWuME0yOYdI/AAAAAAAABJc/jCktfTGBJa8/s320/gopher2d.jpg" class="d-block w-100" alt="...">
+                  <div class="carousel-caption d-none d-md-block">
+                    <h5 style="color: white;">Gopher</h5>
+                  </div>
+                  </div>
+                
+                
+                <div class="carousel-item" >
+                  <img src="https://www.dykking.no/images/nyhetsbilder/2019/19.01113.1.jpg" class="d-block w-100" alt="...">
+                  <div class="carousel-caption d-none d-md-block">
+                    <h5 style="color: white;">Horsea</h5>
+                    
+                  </div>
+                  </div>
+                  
+                  
+                  
+                  <div class="carousel-item" >
+                    <img src="http://2.bp.blogspot.com/-XlaaXhBrxNE/T32pghUghzI/AAAAAAAAABQ/oa7wmN6OUfk/s1600/Swift.jpg" class="d-block w-100" alt="...">
+                    <div class="carousel-caption d-none d-md-block">
+                      <h5 style="color: orangered;">Swift</h5>
+                    </div>
+                    </div>
+                    
+                    
+                    
+                    <div class="carousel-item">
+                      <img src="https://thumbs-prod.si-cdn.com/7ni_NLu_rccMVaZ5m40KZh3FaAo=/800x600/filters:no_upscale()/https://public-media.si-cdn.com/filer/56/73/5673d47f-353d-4742-a45f-f1a4c68954dc/2020_june10_pangolins.jpg" class="d-block w-100" alt="...">
+                      <div class="carousel-caption d-none d-md-block">
+                        <h5 style="color: white;">Sandslash</h5>
+                      </div>
+                      </div>
+            </div>
+              <button class="carousel-control-prev" type="button" data-bs-target="#carouselDexControls"  data-bs-slide="prev">
+                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                 <span class="visually-hidden">Previous</span>
+               </button>
+               <button class="carousel-control-next" type="button" data-bs-target="#carouselDexControls"  data-bs-slide="next">
+                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                 <span class="visually-hidden">Next</span>
+               </button>
+            </div>
+      </div>
+    </div>
+  </div>
+</section><!-- End Hero -->
+
+ 
+
+
+  
+#endexport
+#endextend

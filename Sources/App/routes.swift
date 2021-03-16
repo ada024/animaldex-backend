@@ -5,10 +5,11 @@ import Foundation
 
 func routes(_ app: Application) throws {
     let trainerController = TrainerController()
+    let animalsController = AnimalsController()
     app.get("trainers", "api", use: trainerController.all)
     app.post("trainers", "api", use: trainerController.create)
     app.delete("trainers","api",":userId", use: trainerController.delete)
-    
+    app.get("trainers","api",":trainerId", "animals" , use: animalsController.getByTrainerId)
     
     //  localhost:8080 Leafindex-page
     app.get { req -> EventLoopFuture<View> in

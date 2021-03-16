@@ -10,6 +10,7 @@ func routes(_ app: Application) throws {
     app.post("trainers", "api", use: trainerController.create)
     app.delete("trainers","api",":userId", use: trainerController.delete)
     app.get("trainers","api",":trainerId", "animals" , use: animalsController.getByTrainerId)
+    app.post("animals", use: animalsController.create)
     
     //  localhost:8080 Leafindex-page
     app.get { req -> EventLoopFuture<View> in

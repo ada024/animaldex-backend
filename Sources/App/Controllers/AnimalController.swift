@@ -16,5 +16,8 @@ final class AnimalsController {
         return Animal.query(on: req.db).filter(\.$trainer.$id, .equal, trainerId).with(\.$trainer).all()
     }
     
-    
+    func create(_ req: Request) throws -> EventLoopFuture<Review> {
+          let review = try req.content.decode(Review.self)
+          return review.save(on: req.db).map { review}
+      }
 }

@@ -25,9 +25,8 @@ final class Animal: Model, Content {
     @Field(key: "description")
     var description: String
     
-    // Animal belongs to a user
     @Parent(key: "user_id") // FK
-    var user: User
+    var trainer: Trainer
     
     init() {}
     
@@ -37,6 +36,6 @@ final class Animal: Model, Content {
         self.type = type
         self.description = description
         self.image = image
-        self.$user.id = userId
+        self.$trainer.id = userId
     }
 }

@@ -2,87 +2,49 @@ import Vapor
 import Foundation
 
 
-struct Context1: Content {
-    let users: [User1]
-}
-
-struct Animal1: Content {
-    let name: String
-    let type: String
-    let description: String
-}
-
-struct User1: Content {
-    
-    var name: String
-    var id: Int?
-    var animals: [Animal1] = [Animal1]()
-}
-
 
 func routes(_ app: Application) throws {
     
     //  localhost:8080 Leafindex-page
     app.get { req -> EventLoopFuture<View> in
-        let homeContext =   Context(title: "Home",users: [])
+        let homeContext =   Context(title: "Home",trainers: [])
         return  req.view.render("index", homeContext)
     }
-    
-    
     
     app.get("owneradd") { req  ->  EventLoopFuture<View> in
         let addContext =   Context(title: "Add Trainer",users: [])
         return  req.view.render("ownerAdd",addContext)
     }
     
-    
-    
-    //  localhost:8080/ trainers
-    
-    /*
-    app.get("trainers") { req  ->  EventLoopFuture<View> in
-        var user = User1(name: "Ash",id: 01)
-        let animals = [Animal1(name: "Goldeen", type: "Water", description: "A water animal")]
-        user.animals = animals
-        
-        var user2 = User1(name: "Misty",id: 02)
-        let animals2 = [Animal1(name: "Goldeen", type: "Water", description: "A water animal"),Animal1(name: "Horsea", type: "Water", description: "Another water animal living in the sea ..........................................................")]
-        user2.animals = animals2
-        
-        let context = Context1(users: [user,user2])
-        return  req.view.render("trainers",context)
-    }
-    */
-
-    // /users    GET all users
+  
+    //    GET all trainers
     app.get("trainers") { req  in
-        return  User.query(on: req.db).with(\.$animals).all().flatMap( { users  -> EventLoopFuture<View> in
-           // let users = userModels.isEmpty ? nil: userModels
-        let trainersContext =   Context(title: "Trainers", users: users)
+        return  Trainer.query(on: req.db).with(\.$animals).all().flatMap( { trainers  -> EventLoopFuture<View> in
+        let trainersContext =   Context(title: "Trainers", trainers: trainers)
                            return  req.view.render("trainers", trainersContext)
         })
     }
     
     
-    // user id
-    app.get("trainers",":userId") { req -> EventLoopFuture<User> in
-        User.find(req.parameters.get("userId"), on: req.db)
+  
+    app.get("trainers",":userId") { req -> EventLoopFuture<Trainer> in
+        Trainer.find(req.parameters.get("userId"), on: req.db)
             .unwrap(or: Abort(.notFound))
     }
     
-    // PUT = update
+    //  Update
     app.put("trainers") { req -> EventLoopFuture<HTTPStatus> in
-        let user = try req.content.decode(User.self)
+        let user = try req.content.decode(Trainer.self)
     
-        return User.find(user.id, on: req.db).unwrap(or: Abort(.notFound)).flatMap {
+        return Trainer.find(user.id, on: req.db).unwrap(or: Abort(.notFound)).flatMap {
             $0.name = user.name
             return $0.update(on: req.db).transform(to: .ok)
         }
     }
     
-    // /user/id DELETE
+
     app.delete("trainers", ":userId") { req -> EventLoopFuture<HTTPStatus> in
-        User.find(req.parameters.get("userId"), on: req.db)
+        Trainer.find(req.parameters.get("userId"), on: req.db)
             .unwrap(or: Abort(.notFound))
             .flatMap {
                 $0.delete(on: req.db)
@@ -90,15 +52,15 @@ func routes(_ app: Application) throws {
     }
     
     
-    // trainers add POST
+
     app.post("trainers") { req -> EventLoopFuture<Response> in
-        let user = try req.content.decode(User.self) // content is body of the httprequest
+        let user = try req.content.decode(Trainer.self) // content is body of the httprequest
         return user.create(on: req.db).map { user in
             req.redirect(to: "trainers")
         }
     }
     
-    // add Animal
+
     app.post("animals") { req -> EventLoopFuture<Animal> in
         let animal = try req.content.decode(Animal.self)
         return animal.create(on: req.db).map { animal }
@@ -108,9 +70,7 @@ func routes(_ app: Application) throws {
     // Update Animal
     app.post("animals", ":animalId", ":isSelected") { req -> EventLoopFuture<Response> in
      let val  = req.parameters.get("isSelected")
-            
-   
-            
+        
          return   Animal.find(req.parameters.get("animalId"), on: req.db).unwrap(or: Abort(.notFound)).flatMap {
             if  val!.lowercased() == "true" {
                         $0.isSelected = true
@@ -124,8 +84,7 @@ func routes(_ app: Application) throws {
         
     }
       
-        
-        // /animals/id DELETE
+        // /animals/DELETE
         app.post("animals", "delete",  ":animalId") { req -> EventLoopFuture<Response> in
             Animal.find(req.parameters.get("animalId"), on: req.db)
                 .unwrap(or: Abort(.notFound))
@@ -136,46 +95,16 @@ func routes(_ app: Application) throws {
                 }
         }
     
-    // add user
+
     app.post("add-user") { req -> Response in
-       let user = try req.content.decode(User.self)
+       let user = try req.content.decode(Trainer.self)
         print(user)
         return req.redirect(to: "/")
     }
-    
-    
-    /*
-    func sampleEdit(_ req: Request) throws -> EventLoopFuture<Response> {
-        let animal = try req.content.decode(Animal.self)
-        let value = try req.content.decode(String.self)
-        return User.find(animal.id, on: req.db).unwrap(or: Abort(.notFound)).map { in
-            user.animals -> Response in
-            if value.lowercased() == "true" {
-                user.animals.updatedAnimal.isSelected = true
-            } else if value.lowercased() == "false" {
-             updatedAnimal.isSelected = false
-            }
-            
-            return updatedAnimal.save(on: req)
-                .map(to: Response.self) { savedAnimal in
-                    guard savedAnimal.id != nil else {
-                        throw Abort(.internalServerError)
-                    }
-                    return req.redirect(to: "/users/\(savedAnimal.user.parentID)")
-        }
-       }
-    }
-    */
-    
-    
-    
-
-    
-    
 }//
 
 
 struct Context: Encodable {
     let title: String
-    let users: [User]
+    let trainers: [Trainer]
 }

@@ -3,7 +3,7 @@ import Vapor
 import Fluent
 import FluentPostgresDriver
 
-final class User: Model, Content {
+final class Trainer: Model, Content {
     
     static let schema = "users"
     
@@ -16,9 +16,13 @@ final class User: Model, Content {
     @Field(key: "image")
     var image: String?
     
-    // hasMany - Relationship, animals
-    @Children(for: \.$user)
+  
+    @Children(for: \.$trainer)
     var animals: [Animal]
+ 
+    @Siblings(through: UserItem.self, from: \.$trainer, to: \.$item)
+    var items: [Item]
+    
     
     init() {}
     

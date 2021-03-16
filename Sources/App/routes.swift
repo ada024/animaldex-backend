@@ -7,6 +7,7 @@ func routes(_ app: Application) throws {
     let trainerController = TrainerController()
     app.get("trainers", "api", use: trainerController.all)
     app.post("trainers", "api", use: trainerController.create)
+    app.delete("trainers","api",":userId", use: trainerController.delete)
     
     
     //  localhost:8080 Leafindex-page

@@ -4,6 +4,10 @@ import Foundation
 
 
 func routes(_ app: Application) throws {
+
+    let trainerController = TrainerController()
+    app.get("trainers", "api", use: trainerController.all)
+    
     
     //  localhost:8080 Leafindex-page
     app.get { req -> EventLoopFuture<View> in
@@ -12,7 +16,7 @@ func routes(_ app: Application) throws {
     }
     
     app.get("owneradd") { req  ->  EventLoopFuture<View> in
-        let addContext =   Context(title: "Add Trainer",users: [])
+        let addContext =   Context(title: "Add Trainer",trainers: [])
         return  req.view.render("ownerAdd",addContext)
     }
     
@@ -96,7 +100,7 @@ func routes(_ app: Application) throws {
         }
     
 
-    app.post("add-user") { req -> Response in
+    app.post("add-trainer") { req -> Response in
        let user = try req.content.decode(Trainer.self)
         print(user)
         return req.redirect(to: "/")

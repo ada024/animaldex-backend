@@ -4,9 +4,9 @@ import Foundation
 
 
 func routes(_ app: Application) throws {
-
     let trainerController = TrainerController()
     app.get("trainers", "api", use: trainerController.all)
+    app.post("trainers", "api", use: trainerController.create)
     
     
     //  localhost:8080 Leafindex-page

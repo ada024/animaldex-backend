@@ -13,6 +13,7 @@ func routes(_ app: Application) throws {
     app.get("trainers","api",":trainerId", "animals" , use: animalsController.getByTrainerId)
     app.post("animals", use: animalsController.create)
     app.post("items", use: itemController.create)
+    app.get("items", use: itemController.getItemsWithTrainer)
     
     
     //  localhost:8080 Leafindex-page

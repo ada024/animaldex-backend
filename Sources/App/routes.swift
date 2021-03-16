@@ -9,6 +9,7 @@ func routes(_ app: Application) throws {
     let itemController = ItemController()
     app.get("trainers", "api", use: trainerController.all)
     app.get("trainerswassociation", "api", use: trainerController.allwassociation)
+    app.post("api","trainers", ":trainerId", "item",":itemId", use: trainerController.createWithItem)
     app.post("trainers", "api", use: trainerController.create)
     app.delete("trainers","api",":userId", use: trainerController.delete)
     app.get("trainers","api",":trainerId", "animals" , use: animalsController.getByTrainerId)

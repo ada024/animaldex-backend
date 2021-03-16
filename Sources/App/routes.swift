@@ -7,15 +7,15 @@ func routes(_ app: Application) throws {
     let trainerController = TrainerController()
     let animalsController = AnimalsController()
     let itemController = ItemController()
-    app.get("trainers", "api", use: trainerController.all)
-    app.get("trainerswassociation", "api", use: trainerController.allwassociation)
+    app.get("api","trainers", use: trainerController.all)
+    app.get("api","trainerswassociation", use: trainerController.allwassociation)
     app.post("api","trainers", ":trainerId", "item",":itemId", use: trainerController.createWithItem)
-    app.post("trainers", "api", use: trainerController.create)
-    app.delete("trainers","api",":userId", use: trainerController.delete)
-    app.get("trainers","api",":trainerId", "animals" , use: animalsController.getByTrainerId)
-    app.post("animals", use: animalsController.create)
-    app.post("items", use: itemController.create)
-    app.get("items", use: itemController.getItemsWithTrainer)
+    app.post("api","trainers", use: trainerController.create)
+    app.delete("api","trainers",":userId", use: trainerController.delete)
+    app.get("api","trainers",":trainerId", "animals" , use: animalsController.getByTrainerId)
+    app.post("api","animals", use: animalsController.create)
+    app.post("api","items", use: itemController.create)
+    app.get("api","items", use: itemController.getItemsWithTrainer)
     
     
     //  localhost:8080 Leafindex-page

@@ -5,7 +5,7 @@ import FluentPostgresDriver
 
 final class Trainer: Model, Content {
     
-    static let schema = "users"
+    static let schema = "trainers"
     
     @ID(key: .id)
     var id: UUID?
@@ -20,7 +20,7 @@ final class Trainer: Model, Content {
     @Children(for: \.$trainer)
     var animals: [Animal]
  
-    @Siblings(through: UserItem.self, from: \.$trainer, to: \.$item)
+    @Siblings(through: TrainerItem.self, from: \.$trainer, to: \.$item)
     var items: [Item]
     
     

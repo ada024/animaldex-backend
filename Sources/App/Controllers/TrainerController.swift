@@ -23,12 +23,10 @@ final class TrainerController {
             }.transform(to: .ok)
     }
     // Create trainer with item
-   
     func createWithItem(_ req: Request) throws -> EventLoopFuture<HTTPStatus> {
         let trainer = Trainer.find(req.parameters.get("trainerId"), on: req.db).unwrap(or: Abort(.notFound))
         let item = Item.find(req.parameters.get("itemId"), on: req.db).unwrap(or: Abort(.notFound))
         return trainer.and(item).flatMap { (trainer, item) in trainer.$items.attach(item, on: req.db)
         }.transform(to: .ok)
           }
-
 }

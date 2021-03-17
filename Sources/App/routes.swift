@@ -39,7 +39,6 @@ func routes(_ app: Application) throws {
     }
     
     
-  
     app.get("trainers",":userId") { req -> EventLoopFuture<Trainer> in
         Trainer.find(req.parameters.get("userId"), on: req.db)
             .unwrap(or: Abort(.notFound))

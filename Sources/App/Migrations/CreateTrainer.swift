@@ -4,7 +4,7 @@ import Vapor
 import Fluent
 import FluentPostgresDriver
 
-struct CreateUser: Migration {
+struct CreateTrainer: Migration {
     func prepare(on database: Database) -> EventLoopFuture<Void> {
          database.schema("users")
             .id()

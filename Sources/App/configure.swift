@@ -7,19 +7,27 @@ import FluentPostgresDriver
 public func configure(_ app: Application) throws {
     // uncomment to serve files from /Public folder
      app.middleware.use(FileMiddleware(publicDirectory: app.directory.publicDirectory))
-
-    app.databases.use(.postgres(
-        hostname: Environment.get("DATABASE_HOST") ?? "localhost",
-        username: Environment.get("DATABASE_USERNAME") ?? "postgres",
-        password: Environment.get("DATABASE_PASSWORD") ?? "",
-        database:  "mydemodb"
-    ), as: .psql)
-
-    app.migrations.add(CreateUser())
+    
+    
+    switch app.environment {
+    case .production:
+        app.databases.use(.postgres(
+            hostname: Environment.get("DATABASE_HOST")!,
+            username: Environment.get("DATABASE_USERNAME")!,
+            password: Environment.get("SECRET_KEY")!.base64Decoded()!,
+            database:  Environment.get("DATABASE")
+        ), as: .psql)
+    default:
+        app.databases.use(.postgres(
+            hostname:  "localhost",
+            username:  "postgres",
+            password:  "",
+            database:  "animaldexdevdb"
+        ), as: .psql)
+    }
+    app.migrations.add(CreateTrainer())
     app.migrations.add(CreateAnimal())
    
     app.views.use(.leaf)
-    
-    // register routes
     try routes(app)
 }

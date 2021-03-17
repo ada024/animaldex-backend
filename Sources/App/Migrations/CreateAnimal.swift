@@ -13,7 +13,7 @@ struct CreateAnimal: Migration {
             .field("image", .string)
             .field("type", .string, .required)
             .field("description", .string, .required)
-            .field("user_id", .uuid, .references("users", "id")) // animals-table user_id =FK, ref user-table id=PK
+            .field("trainer_id", .uuid, .references("trainers", "id")) // animals-table trainer_id =FK, ref trainer-table id=PK
             .create()
     }
 

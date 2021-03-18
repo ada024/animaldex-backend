@@ -27,6 +27,11 @@ public func configure(_ app: Application) throws {
     }
     app.migrations.add(CreateTrainer())
     app.migrations.add(CreateAnimal())
+    
+    app.migrations.add(CreateItem())
+       app.migrations.add(CreateTrainerItem())
+       //  app.migrations.add(AddImageColumnToTrainer())
+     
    
     app.views.use(.leaf)
     try routes(app)

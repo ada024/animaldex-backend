@@ -18,7 +18,7 @@ func routes(_ app: Application) throws {
     app.get("api","items", use: itemController.getItemsWithTrainer)
     
     
-    //  localhost:8080 Leafindex-page
+    //  localhost:8080 Leafindex
     app.get { req -> EventLoopFuture<View> in
         let homeContext =   Context(title: "Home",trainers: [])
         return  req.view.render("index", homeContext)

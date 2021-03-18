@@ -3,11 +3,9 @@
 
 ## Animaldex backend
 AnimalDex is Vapor-project that shows a list of animals and their owners.
-* Backend(administration +api) for [realadex-app](#)
+* Backend(server +api) for [realadex-app](https://github.com/ada024/animaldex-app)
 * Features  add,edit,delete user & animals
 * Uses PostgreSQL database
-
-
 
 
 <br>

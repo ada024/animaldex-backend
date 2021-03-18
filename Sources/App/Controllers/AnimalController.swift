@@ -17,7 +17,7 @@ final class AnimalsController {
     }
     
     func create(_ req: Request) throws -> EventLoopFuture<Review> {
-          let review = try req.content.decode(Review.self)
-          return review.save(on: req.db).map { review}
+          let animal = try req.content.decode(Animal.self)
+          return animal.save(on: req.db).map { animal}
       }
 }

@@ -3,6 +3,7 @@
 //
 
 import Foundation
+import Vapor
 
 extension Environment {
     static let secretKey = Self.get("SECRET_KEY")!.base64Decoded()!

@@ -6,7 +6,7 @@ import FluentPostgresDriver
 
 struct CreateTrainer: Migration {
     func prepare(on database: Database) -> EventLoopFuture<Void> {
-         database.schema("users")
+         database.schema("trainers")
             .id()
             .field("name", .string, .required)
             .field("image", .string)
@@ -14,6 +14,6 @@ struct CreateTrainer: Migration {
     }
 
     func revert(on database: Database) -> EventLoopFuture<Void> {
-         database.schema("users").delete()
+         database.schema("trainers").delete()
     }
 }

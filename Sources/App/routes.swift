@@ -33,6 +33,7 @@ func routes(_ app: Application) throws {
     //    GET all trainers
     app.get("trainers") { req  in
         return  Trainer.query(on: req.db).with(\.$animals).all().flatMap( { trainers  -> EventLoopFuture<View> in
+            print("Trainers get called!!!!!!!!!!!!!!!!")
         let trainersContext =   Context(title: "Trainers", trainers: trainers)
                            return  req.view.render("trainers", trainersContext)
         })

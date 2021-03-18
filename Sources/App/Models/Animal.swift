@@ -25,17 +25,17 @@ final class Animal: Model, Content {
     @Field(key: "description")
     var description: String
     
-    @Parent(key: "user_id") // FK
+    @Parent(key: "trainer_id") // FK
     var trainer: Trainer
     
     init() {}
     
-    init(id: UUID? = nil, name: String, type: String, description: String, userId: UUID, image: String? = nil ) {
+    init(id: UUID? = nil, name: String, type: String, description: String, trainerId: UUID, image: String? = nil ) {
         self.id = id
         self.name = name
         self.type = type
         self.description = description
         self.image = image
-        self.$trainer.id = userId
+        self.$trainer.id = trainerId
     }
 }

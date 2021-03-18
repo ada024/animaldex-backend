@@ -67,17 +67,19 @@ func routes(_ app: Application) throws {
     
 
     app.post("trainers") { req -> EventLoopFuture<Response> in
-        let user = try req.content.decode(Trainer.self) // content is body of the httprequest
-        return user.create(on: req.db).map { user in
+       // content is body of the httprequest
+        let trainer = try req.content.decode(Trainer.self) //
+        return trainer.create(on: req.db).map { trainer in
             req.redirect(to: "trainers")
         }
     }
     
-
-    app.post("animals") { req -> EventLoopFuture<Animal> in
+// Maybe obsolete
+    app.post("animals") { req -> EventLoopFuture<Response> in
         let animal = try req.content.decode(Animal.self)
-        return animal.create(on: req.db).map { animal }
-        
+        return animal.create(on: req.db).map { animal in
+            req.redirect(to: "trainers")
+        }
     }
     
     // Update Animal
@@ -110,8 +112,7 @@ func routes(_ app: Application) throws {
     
 
     app.post("add-trainer") { req -> Response in
-       let user = try req.content.decode(Trainer.self)
-        print(user)
+     _ = try req.content.decode(Trainer.self)
         return req.redirect(to: "/")
     }
 }//

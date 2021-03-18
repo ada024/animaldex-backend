@@ -19,14 +19,14 @@
      
      
      <ul style="list-style-type: none;">
-         #for(user in users):
+         #for(trainer in trainers):
          <li>
              <div>
-                 #if(user.image !=""): <img class="imgrounded" src="#(user.image)"  width="70" height="70"> #else: <img src="https://180dc.org/wp-content/uploads/2017/11/profile-placeholder.png"  width="50" height="50"> #endif
-             <button class="button button1" onclick="openModal('#(user.name) gets a new animal?', #(user.id))"><h5>#(user.name):#if(count(user.animals) == 1): 1 animal #else: #count(user.animals) animals #endif</h5></button>
+                 #if(trainer.image !=""): <img class="imgrounded" src="#(trainer.image)"  width="70" height="70"> #else: <img src="https://180dc.org/wp-content/uploads/2017/11/profile-placeholder.png"  width="50" height="50"> #endif
+             <button class="button button1" onclick="openModal('#(trainer.name) gets a new animal?', #(trainer.id))"><h5>#(trainer.name):#if(count(trainer.animals) == 1): 1 animal #else: #count(trainer.animals) animals #endif</h5></button>
              <br/>
             
-            #if(count(user.animals) > 0):
+            #if(count(trainer.animals) > 0):
              <div class="table-responsive">
                  <table class="table">
                    <thead>
@@ -39,14 +39,14 @@
                      </tr>
                    </thead>
                    <tbody>
-                       #for(animal in user.animals):
+                       #for(animal in trainer.animals):
                      <tr>
                          <td>
                          #if(animal.image): <img src="#(animal.image)"  width="50" height="50"> #else: <img src="http://ichno.org/dokuwiki/lib/exe/fetch.php?cache=&media=characters:placeholder.png"  width="50" height="50"> #endif
                  </td>
                          
                          
-                       <td><p style="width:10%;">#if(!animal.isSelected): #(animal.name) #else:<input style="width:8em;" type="text" class="form-control" name="name" id="name" value="#(animal.name)" placeholder="Username" aria-label="Username"> #endif </p></td>
+                       <td><p style="width:10%;">#if(!animal.isSelected): #(animal.name) #else:<input style="width:8em;" type="text" class="form-control" name="name" id="name" value="#(animal.name)" placeholder="Trainername" aria-label="Username"> #endif </p></td>
                        <td>
                            <p style="width:50%;">#if(!animal.isSelected): #(animal.type) #else:
                            <select class="form-select" value="animal.type" aria-label="Default select example">
@@ -110,7 +110,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-6">
-                    <form method="post" action="/users">
+                    <form method="post" action="/trainers">
                         <div class="form-group">
                             <label for="lastName">Nickname</label>
                             <div class="form-floating">
